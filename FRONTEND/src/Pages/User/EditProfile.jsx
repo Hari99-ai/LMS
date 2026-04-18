@@ -64,59 +64,70 @@ function EditProfile() {
 
   return (
     <Homelayout>
-        <div className="flex items-center justify-center h-screen">
-             <form
-               onSubmit={onFormSubmit}
-               className="flex flex-col w-96 items-center justify-center gap-4 p-8 rounded-md text-white shadow-[0_0_10px_teal]"
-             >
-             <h1 className="font-semibold text-xl text-white">Edit Profile</h1>
-             <div>
-             <label className="cursor-pointer" htmlFor="upload_image">
-                {data.previewImage?(
-                   <div>
-                      <img  
-                       className="h-24 w-24 rounded-full hover:scale-125"
-                       src={data.previewImage} 
-                       />
-                   </div>
-                ):( 
-                   <BsPersonCircle className="h-24 w-24 rounded-full hover:scale-125 transition duration-1000 ease-in-out"/>
+      <div className="min-h-[calc(100vh-3rem)] px-4 py-16 sm:py-20 bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.16),_transparent_35%),linear-gradient(180deg,_#f8fafc_0%,_#eef7f6_100%)]">
+        <div className="mx-auto max-w-2xl">
+          <form
+            onSubmit={onFormSubmit}
+            className="overflow-hidden rounded-3xl border border-teal-200/70 bg-white shadow-[0_20px_60px_rgba(13,148,136,0.18)]"
+          >
+            <div className="bg-gradient-to-r from-teal-400 to-cyan-300 px-8 py-8 text-slate-900">
+              <h1 className="text-3xl font-extrabold">Edit Profile</h1>
+              <p className="mt-2 text-sm font-medium text-slate-700">
+                Update your public name and avatar.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center gap-6 px-8 py-10">
+              <label className="cursor-pointer" htmlFor="upload_image">
+                {data.previewImage ? (
+                  <img
+                    className="h-28 w-28 rounded-full border-4 border-teal-200 object-cover shadow-md transition hover:scale-105"
+                    src={data.previewImage}
+                    alt="preview"
+                  />
+                ) : (
+                  <BsPersonCircle className="h-28 w-28 rounded-full text-teal-400 transition hover:scale-105" />
                 )}
-             </label>
-             <input
-              type="file"
-              className="hidden"
-              id="upload_image"
-              onChange={handelImage}
-              name="upload_image"
-              accept=".jpg .svg .png .jpeg"
+              </label>
+              <input
+                type="file"
+                className="hidden"
+                id="upload_image"
+                onChange={handelImage}
+                name="upload_image"
+                accept=".jpg,.svg,.png,.jpeg"
               />
-             </div>
-              <div>
-                <label htmlFor="fullName">Name :</label>
+
+              <div className="w-full">
+                <label htmlFor="fullName" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Name
+                </label>
                 <input
-                   type="text"
-                   id="fullName"
-                   className="mx-4 px-6 py-1 rounded-md bg-transparent border"  
-                   placeholder="Enter your name...."
-                   required
-                   onChange={handleFormData}
-                   value={data.fullName}
-                   name="fullName"
-                   />
+                  type="text"
+                  id="fullName"
+                  className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-teal-400 focus:ring-2 focus:ring-teal-100"
+                  placeholder="Enter your name...."
+                  required
+                  onChange={handleFormData}
+                  value={data.fullName}
+                  name="fullName"
+                />
               </div>
-              <button className="bg-teal-500 block w-full px-2 py-1 border rounded hover:bg-teal-600 text-white hover:text-black transition-all hover:scale-110 ease-in-out duration-300">Submit</button>
 
-              <Link
-               className="w-full"
-               to={"/user/profile"}> 
-               <p className="  flex items-center justify-center gap-2 w-full px-2 py-1  text-white hover:scale-200 transition-all ease-in-out duration-300"> 
-               <AiOutlineArrowLeft/> Go back to profile
-               </p> 
-            </Link>
-             </form>
-
+              <div className="flex w-full flex-col gap-3 sm:flex-row">
+                <button className="flex-1 rounded-full bg-teal-500 px-4 py-3 font-semibold text-white transition hover:bg-teal-600">
+                  Submit
+                </button>
+                <Link className="flex-1" to={"/user/profile"}>
+                  <p className="flex h-full items-center justify-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-3 font-semibold text-slate-700 transition hover:border-teal-300 hover:bg-teal-50">
+                    <AiOutlineArrowLeft /> Go back to profile
+                  </p>
+                </Link>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
     </Homelayout>
   )
 

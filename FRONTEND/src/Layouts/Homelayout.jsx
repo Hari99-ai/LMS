@@ -26,99 +26,98 @@ function Homelayout({ children }) {
 
   return (
     <div className="min-h-screen w-full flex flex-col overflow-x-hidden">
-      <header className="drawer fixed w-full bg-black  z-50 h-12">
-        <ul className=" gap-10 px-10 list-none w-full flex justify-between items-center">
-          <div className="flex items-center h-12 space-x-4">
-              <Link href="#home" className="text-2xl font-extrabold hover:text-teal-400 transition">
-                  Code-Scorer
-              </Link>
-              <img
-                  src={gif7}
-                  alt="Code-Scorer Animation"
-                  className="h-12 w-12" // Adjust height and width as needed
-              />
+      <header className="fixed inset-x-0 top-3 z-50 px-3 sm:px-4 lg:px-6">
+        <div className="mx-auto flex h-14 max-w-7xl items-center gap-4 rounded-full border border-white/60 bg-slate-950/90 px-4 shadow-[0_18px_50px_rgba(15,23,42,0.28)] backdrop-blur-xl sm:px-5">
+          <div className="flex items-center gap-3 shrink-0">
+            <Link to={"/"} className="text-xl font-extrabold transition hover:text-teal-400 sm:text-2xl">
+              Code-Scorer
+            </Link>
+            <img
+              src={gif7}
+              alt="Code-Scorer Animation"
+              className="h-10 w-10 sm:h-12 sm:w-12"
+            />
           </div>
-          <li>
+
+          <ul className="flex min-w-0 flex-1 items-center justify-center gap-4 overflow-hidden whitespace-nowrap text-sm text-slate-200 sm:gap-5 lg:gap-8 lg:text-base">
+            <li>
               <Link to={"/"}>
-                <span className="text-lg font-bold hover:text-teal-300 ">Home</span>
+                <span className="font-bold hover:text-teal-300">Home</span>
               </Link>
-          </li>
-          <li>
+            </li>
+            <li>
               <Link to={"/about"}>
-                <span className="text-lg font-bold hover:text-teal-300 ">About</span>
+                <span className="font-bold hover:text-teal-300">About</span>
               </Link>
-          </li>
-          {isLoggedIn && (
+            </li>
+            {isLoggedIn && (
               <li>
                 <Link to={"/chat/community"}>
-                  <span className="text-lg font-bold hover:text-teal-300  ">Community Chat</span>
+                  <span className="font-bold hover:text-teal-300">Community Chat</span>
                 </Link>
               </li>
-          )}
-          {isLoggedIn && role === "ADMIN" && (
+            )}
+            {isLoggedIn && role === "ADMIN" && (
               <li>
                 <Link to={"/admin/dashboard"}>
-                  <span className="text-lg font-bold hover:text-teal-300  ">Admin Dashboard</span>
+                  <span className="font-bold hover:text-teal-300">Admin Dashboard</span>
                 </Link>
               </li>
-           )}
-           {isLoggedIn && role === "ADMIN" && (
+            )}
+            {isLoggedIn && role === "ADMIN" && (
               <li>
                 <Link to={"/course/create"}>
-                  <span className="text-lg font-bold hover:text-teal-300 ">Create course</span>
+                  <span className="font-bold hover:text-teal-300">Create course</span>
                 </Link>
               </li>
             )}
             {role !== "ADMIN" && (
               <li>
                 <Link to={"/contact"}>
-                  <span className="text-lg font-bold hover:text-teal-300  ">Contact</span>
+                  <span className="font-bold hover:text-teal-300">Contact</span>
                 </Link>
               </li>
             )}
             {isLoggedIn && role === "ADMIN" && (
               <li>
                 <Link to={"/contact/showData"}>
-                  <span className="text-lg font-bold hover:text-teal-300  ">Contact data</span>
+                  <span className="font-bold hover:text-teal-300">Contact data</span>
                 </Link>
               </li>
             )}
-          {isLoggedIn ? (
-            <div className="absolute right-10 gap-6 flex">
-                <li>
-                    <Link to={"/user/profile"}>
-                      <span className="btn btn-sm border-transparent btn-primary bg-teal-300 ">
-                        Profile
-                      </span>
-                    </Link>
-                 </li>
-                <li>
-                  <Link onClick={handlelogout}>
-                    <span className="btn btn-sm  btn-secondary border-transparent bg-teal-300">
-                      Logout
-                    </span>
-                  </Link>
-                </li>
-             </div>
-            ):
-            (<div className="absolute right-10 gap-6 flex">
-                <li>
-                  <Link to={"/login"}>
-                    <span className="btn btn-sm btn-primary bg-teal-300">
-                      Login
-                    </span>
-                  </Link>
-                </li>
-                <li>
+          </ul>
+
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            {isLoggedIn ? (
+              <>
+                <Link to={"/user/profile"}>
+                  <span className="btn btn-sm border-transparent bg-teal-300 text-black hover:bg-teal-200 sm:btn-md">
+                    Profile
+                  </span>
+                </Link>
+                <button
+                  onClick={handlelogout}
+                  className="btn btn-sm border-transparent bg-teal-300 text-black hover:bg-teal-200 sm:btn-md"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to={"/login"}>
+                  <span className="btn btn-sm border-transparent bg-teal-300 text-black hover:bg-teal-200 sm:btn-md">
+                    Login
+                  </span>
+                </Link>
                 <Link to={"/signup"}>
-                  <span className="btn btn-sm btn-primary bg-teal-300">
+                  <span className="btn btn-sm border-transparent bg-teal-300 text-black hover:bg-teal-200 sm:btn-md">
                     Signup
                   </span>
                 </Link>
-                </li>
-              </div>)
-          }
-        </ul>
+              </>
+            )}
+          </div>
+        </div>
       </header>
       <main className="flex-1">
         {children}

@@ -13,6 +13,36 @@ import { BsCollectionPlayFill, BsTrash } from "react-icons/bs";
 
 ChartJS.register(ArcElement,Tooltip, Legend,CategoryScale,LinearScale,BarElement,Title);
 
+const chartBaseOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "top",
+      labels: {
+        usePointStyle: true,
+      },
+    },
+  },
+};
+
+const barOptions = {
+  ...chartBaseOptions,
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      beginAtZero: true,
+      grid: {
+        color: "rgba(148, 163, 184, 0.2)",
+      },
+    },
+  },
+};
+
 function Dashboard() {
 
    const dispatch=useDispatch();
@@ -36,7 +66,7 @@ const MonthlySells = {
   }]
 };
 
-const UserDetails = {
+  const UserDetails = {
   labels: ["Registered User","Enrolled User"],
   datasets: [{
     label: 'User details',
@@ -75,87 +105,107 @@ const UserDetails = {
  
   return (
     <Homelayout>
-          <div className="min-h-[90vh] pt-20 flex flex-col flex-wrap gap-10 text-black">
-              <center><h1 className="text-teal-500 text-5xl font-bold">Admin Dashboard</h1></center> 
-          <div className="grid grid-cols-2 gap-5 m-auto mx-10">
-             <div className="flex flex-col items-center bg-blue-100 gap-10 p-5 shadow-lg rounded-md"> 
-                 <div className="h-80 w-80">
-                    <Pie data={UserDetails}/>
-                 </div>
-                 <div className="grid grid-cols-2 gap-5">
-                   <div className="flex items-center justify-between p-5 rounded-md shadow-md"> 
-                       <div className=" flex flex-col items-center ">
-                          <p className="font-semibold "> Registered users</p>
-                          <h3 className="text-4xl font-bold ">{allUserCount}</h3>
-                       </div>
-                       < FaUsers className="text-teal-500 text-5xl" />
-                   </div>
-                   <div className="flex items-center justify-between p-5 rounded-md shadow-md"> 
-                       <div className=" flex flex-col items-center ">
-                          <p className="font-semibold ">Enrolled Users</p>
-                          <h3 className="text-4xl font-bold ">{subscribedCount}</h3>
-                       </div>
-                       < FaUsers className="text-teal-500 text-5xl" />
-                   </div>
-  
-                 </div>
-             </div>
-             <div className="flex flex-col items-center bg-blue-100 gap-10 p-5 shadow-lg rounded-md"> 
-                 <div className="h-96 w-full">
-                    <Bar data={MonthlySells}/>
-                 </div>
-             </div>
+      <div className="min-h-[calc(100vh-3rem)] bg-slate-50 px-4 py-16 text-slate-900 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8">
+          <div className="pt-8 text-center">
+            <h1 className="text-4xl font-black tracking-tight text-teal-500 sm:text-5xl lg:text-6xl">
+              Admin Dashboard
+            </h1>
+            <p className="mt-3 text-sm text-slate-500 sm:text-base">
+              Track users, revenue, and course activity in one place.
+            </p>
+          </div>
+          <div className="grid gap-6 xl:grid-cols-2">
+            <section className="rounded-3xl border border-sky-200 bg-sky-100/80 p-6 shadow-lg">
+              <div className="mx-auto h-[320px] w-full max-w-[420px]">
+                <Pie data={UserDetails} options={chartBaseOptions} />
+              </div>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <div className="flex items-center justify-between rounded-2xl bg-white/70 p-5 shadow-sm">
+                  <div className="flex flex-col items-start">
+                    <p className="font-semibold text-slate-600">Registered users</p>
+                    <h3 className="text-4xl font-bold text-slate-900">{allUserCount}</h3>
+                  </div>
+                  <FaUsers className="text-4xl text-teal-500" />
+                </div>
+                <div className="flex items-center justify-between rounded-2xl bg-white/70 p-5 shadow-sm">
+                  <div className="flex flex-col items-start">
+                    <p className="font-semibold text-slate-600">Enrolled users</p>
+                    <h3 className="text-4xl font-bold text-slate-900">{subscribedCount}</h3>
+                  </div>
+                  <FaUsers className="text-4xl text-teal-500" />
+                </div>
+              </div>
+            </section>
 
-             <table className="table my-20 text-white overflow-x-scroll" >
-                 <thead>
-                    <tr className="text-center">
-                       <th>S. No.</th>
-                       <th>Course Title</th>
-                       <th>Course Category</th>
-                       <th>Instructor</th>
-                       <th>Total Lectures</th>
-                       <th>Description</th>
-                       <th>Actions</th>
-                    </tr>
-                 </thead>
-                 <tbody>
-                    {
-                      myCourse?.map((course,idx)=>{
-                         return(
-                            <tr key={idx}>
-                               <td>{idx+1}</td>
-                               <td><textarea value={course?.title} readOnly className=" h-auto text-center resize-none bg-transparent" cols="30" ></textarea>
-                               </td>
-                               <td><textarea value={course?.category} readOnly className="text-center resize-none bg-transparent" cols="30" ></textarea>
-                               </td>
-                               <td><textarea value={course?.createdBy} readOnly className="text-center resize-none bg-transparent" cols="20" ></textarea>
-                               </td>
-                               <td><textarea value={course?.numbersOfLecture} readOnly className="text-center resize-none bg-transparent" cols="20" rows="2"></textarea>
-                               </td>
-                               <td><textarea value={course?.description} readOnly className="text-center resize-none h-auto bg-transparent" cols="30" ></textarea>
-                               </td>
-                               <td className="flex w-44 ml-10  justify-between items-center gap-6">
-                                   <button 
-                                     className="btn btn-success "
-                                     onClick={()=>{navigate(`/course/${course?._id}/displaylectures`,{state :{...course}})}}
-                                     >
-                                      <BsCollectionPlayFill/> 
-                                   </button>
-                                   <button 
-                                     className="btn btn-warning "
-                                     onClick={()=>{DeleteCourse(course?._id)}}
-                                     >
-                                      <BsTrash/> 
-                                   </button>
-                               </td>
-                            </tr>
-                         )
-                      })
-                    }
-                 </tbody>
-             </table>
+            <section className="rounded-3xl border border-sky-200 bg-sky-100/80 p-6 shadow-lg">
+              <div className="h-[360px] w-full">
+                <Bar data={MonthlySells} options={barOptions} />
+              </div>
+            </section>
           </div>
-          </div>
+
+          <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-lg">
+            <div className="overflow-x-auto">
+              <table className="min-w-[1100px] w-full table-auto text-left text-slate-800">
+                <thead className="bg-slate-100 text-slate-600">
+                  <tr>
+                    <th className="px-4 py-4">S. No.</th>
+                    <th className="px-4 py-4">Course Title</th>
+                    <th className="px-4 py-4">Course Category</th>
+                    <th className="px-4 py-4">Instructor</th>
+                    <th className="px-4 py-4">Total Lectures</th>
+                    <th className="px-4 py-4">Description</th>
+                    <th className="px-4 py-4">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    myCourse?.map((course,idx)=>{
+                      return(
+                        <tr key={idx} className="border-t border-slate-200">
+                          <td className="px-4 py-4 align-top font-semibold">{idx+1}</td>
+                          <td className="px-4 py-4 align-top">
+                            <p className="max-w-xs break-words">{course?.title}</p>
+                          </td>
+                          <td className="px-4 py-4 align-top">
+                            <p className="max-w-xs break-words">{course?.category}</p>
+                          </td>
+                          <td className="px-4 py-4 align-top">
+                            <p className="max-w-xs break-words">{course?.createdBy}</p>
+                          </td>
+                          <td className="px-4 py-4 align-top">
+                            <p className="text-center font-semibold">{course?.numbersOfLecture}</p>
+                          </td>
+                          <td className="px-4 py-4 align-top">
+                            <p className="max-w-md break-words leading-6 text-slate-600">{course?.description}</p>
+                          </td>
+                          <td className="px-4 py-4 align-top">
+                            <div className="flex w-max items-center gap-3">
+                              <button
+                                className="btn btn-success"
+                                onClick={()=>{navigate(`/course/${course?._id}/displaylectures`,{state :{...course}})}}
+                              >
+                                <BsCollectionPlayFill/>
+                              </button>
+                              <button
+                                className="btn btn-warning"
+                                onClick={()=>{DeleteCourse(course?._id)}}
+                              >
+                                <BsTrash/>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      )
+                    })
+                  }
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
 
     </Homelayout>
   )

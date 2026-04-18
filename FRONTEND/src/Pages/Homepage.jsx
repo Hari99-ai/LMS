@@ -1,122 +1,147 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from "react";
 import Homelayout from "../Layouts/Homelayout.jsx";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import homepageImage from "../assets/Images/homePageMainImage.png";
-import { useDispatch } from 'react-redux';
-import { useEffect as useReduxEffect } from 'react';
-import { GetUserProfile } from '../Redux/Slices/AuthSlices.js';
+import { useDispatch } from "react-redux";
+import { GetUserProfile } from "../Redux/Slices/AuthSlices.js";
 import TopEducator from "../Pages/TopEducator.jsx";
 import StudentsReviews from "../Pages/StudentsReviews.jsx";
-import SocialMedia from "../Pages/SocialMedia.jsx"; 
+import SocialMedia from "../Pages/SocialMedia.jsx";
 import Carousel from "../Pages/ImageSlider.jsx";
-import { Typed } from 'react-typed';
-import gif3 from "../assets/Images/gif3.gif"; // Adjust path as necessary
-import Header from '../components/Header.jsx';
+import { Typed } from "react-typed";
+import gif3 from "../assets/Images/gif3.gif";
+import Header from "../components/Header.jsx";
+
 function Homepage() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const typedElement = useRef(null);
 
-    // Load data using Redux action
-    async function loaddata() {
-        dispatch(GetUserProfile());
-    }
+  useEffect(() => {
+    dispatch(GetUserProfile());
+  }, [dispatch]);
 
-    // Dispatch the profile loading on component mount
-    useReduxEffect(() => {
-        loaddata();
-    }, []);
+  useEffect(() => {
+    if (!typedElement.current) return undefined;
 
-    const typedElement = useRef(null); // Reference for Typed
+    const typed = new Typed(typedElement.current, {
+      strings: [
+        "Affordable online courses.",
+        "Industry expert lectures.",
+        "24 x 7 doubt support.",
+        "Free personal guidance.",
+        "Quality mentorship.",
+        "Mental health support.",
+      ],
+      typeSpeed: 45,
+      backSpeed: 30,
+      loop: true,
+      showCursor: true,
+      cursorChar: "|",
+    });
 
-    useEffect(() => {
-        if (typedElement.current) {
-            // Initialize typing effect
-            typedElement.current = new Typed(typedElement.current, {
-                strings: [
-                    "Affordable Online courses.",
-                    "Industry expert's Lectures.",
-                    "24 x 7 Doubt Support.",
-                    "Free Personal Guidance.",
-                    "Quality Mentorship.",
-                    "Mental Health Support."
-                ],
-                typeSpeed: 50,
-                backSpeed: 50,
-                loop: true,
-                showCursor: true, // Show the cursor while typing
-                cursorChar: '|',
-            });
-        }
-    }, []);
+    return () => typed.destroy();
+  }, []);
 
-    return (
-        <Homelayout>
-            <div
-                className="flex pt-20 flex-col h-[100vh] sm:flex-row items-center sm:justify-center lg:pt-7  relative"
-            >
-                {/* Background GIF with reduced opacity using ::before */}
-                <div
-                    style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        backgroundImage: `url(${gif3})`,
-                        backgroundSize: "auto 100%", // Scales to full height, adjusts width automatically
-                        backgroundPosition: "left, right", // Aligns images to the left and right
-                        backgroundRepeat: "true", // Prevents tiling
-                        opacity: 0.7, // Reduces opacity of the background GIF only
-                        zIndex: -1, // Keeps the background behind the content
-                    }}
-                ></div>
+  return (
+    <Homelayout>
+      <section id="home" className="relative overflow-hidden px-4 pb-8 pt-8 sm:px-6 lg:px-8">
+        <div
+          className="absolute inset-0 -z-10 opacity-25"
+          style={{
+            backgroundImage: `url(${gif3})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-white/75 via-white/40 to-teal-100/40" />
 
-                {/* Left Section (Text Content) */}
-                <div className='pl-6 w-4/5 space-y-5'>
-                    <h1 className='text-8xl pb-20  font-extrabold text-teal-300'>
-                        Keep Learning, and Keep Exploring!!
-                    </h1>
-
-                    <div className="flex flex-row">
-                        <h1 className='text-6xl pr-10 font-extrabold sm:text-5xl mb-4'>
-                            Here You Get 
-                        </h1>
-                        <div
-                            ref={typedElement}
-                            className="text-3xl font-semibold sm:text-5xl text-teal-300 mb-4"
-                        >
-                            {/* Typing effect will appear here */}
-                        </div>
-                    </div>
-
-
-                    <div className='space-x-4 pt-10 pb-10'>
-                        <Link to={"/courses"}>
-                            <button className='bg-teal-400 transition-all delay-100 font-bold hover:bg-white text-black p-2 rounded-md'>
-                                Explore Courses
-                            </button>
-                        </Link>
-                        <Link to={"/contact"}>
-                            <button className='text-teal-400 border font-bold border-teal-400 p-2 hover:bg-teal-300 hover:text-black rounded-md'>
-                                Contact Us
-                            </button>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Right Section (Image) */}
-                <div className="p-0 m-0 h-[100%] w-2/5">
-                    <img src={homepageImage} alt="home page image" />
-                </div>
+        <div className="mx-auto grid min-h-[calc(100vh-7rem)] max-w-7xl items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="space-y-7">
+            <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-4 py-2 text-sm font-semibold text-teal-700 shadow-sm backdrop-blur">
+              <span className="h-2.5 w-2.5 rounded-full bg-teal-400" />
+              Code-Scorer learning platform
             </div>
 
-            {/* Additional Sections */}
-            <Header/>
-            <Carousel />
-            <TopEducator />
-            <StudentsReviews />
-            <SocialMedia />
-        </Homelayout>
-    );
+            <div className="space-y-5">
+              <h1 className="max-w-3xl text-5xl font-black leading-[0.95] tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
+                Keep learning, keep exploring.
+              </h1>
+              <p className="max-w-2xl text-lg leading-8 text-slate-600 sm:text-xl">
+                Build job-ready skills through guided lessons, expert faculty, and a supportive community that keeps you moving forward.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3 text-lg font-semibold text-teal-500">
+              <span className="rounded-full bg-white px-4 py-2 shadow-sm">Courses</span>
+              <span className="rounded-full bg-white px-4 py-2 shadow-sm">Mentorship</span>
+              <span className="rounded-full bg-white px-4 py-2 shadow-sm">Community</span>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <Link to={"/courses"}>
+                <button className="rounded-full bg-teal-500 px-6 py-3 font-bold text-white shadow-lg shadow-teal-500/25 transition hover:-translate-y-0.5 hover:bg-teal-600">
+                  Explore Courses
+                </button>
+              </Link>
+              <Link to={"/contact"}>
+                <button className="rounded-full border border-teal-300 bg-white px-6 py-3 font-bold text-teal-700 shadow-sm transition hover:-translate-y-0.5 hover:bg-teal-50">
+                  Contact Us
+                </button>
+              </Link>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl border border-white/70 bg-white/80 p-4 shadow-sm backdrop-blur">
+                <p className="text-3xl font-black text-slate-900">24/7</p>
+                <p className="text-sm text-slate-500">Doubt support</p>
+              </div>
+              <div className="rounded-2xl border border-white/70 bg-white/80 p-4 shadow-sm backdrop-blur">
+                <p className="text-3xl font-black text-slate-900">100+</p>
+                <p className="text-sm text-slate-500">Learning modules</p>
+              </div>
+              <div className="rounded-2xl border border-white/70 bg-white/80 p-4 shadow-sm backdrop-blur">
+                <p className="text-3xl font-black text-slate-900">Expert</p>
+                <p className="text-sm text-slate-500">Faculty guidance</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 -z-10 rounded-[2.5rem] bg-teal-400/20 blur-3xl" />
+            <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 p-4 shadow-[0_24px_70px_rgba(15,23,42,0.15)] backdrop-blur">
+              <div className="relative overflow-hidden rounded-[1.5rem] bg-slate-950">
+                <img
+                  src={homepageImage}
+                  alt="home page illustration"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/65 via-slate-950/10 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/20 bg-white/10 p-4 text-white backdrop-blur">
+                  <p className="text-sm uppercase tracking-[0.3em] text-teal-200">Next step</p>
+                  <h2 className="mt-2 text-2xl font-bold">Start with a course that fits your goals.</h2>
+                </div>
+              </div>
+            </div>
+
+            <div className="absolute -left-4 top-8 hidden rounded-2xl border border-white/70 bg-white/90 px-4 py-3 shadow-lg lg:block">
+              <p className="text-sm font-semibold text-slate-500">Live learning</p>
+              <p className="text-lg font-bold text-slate-900">Fresh lessons every week</p>
+            </div>
+          </div>
+        </div>
+
+        <Header />
+      </section>
+
+      <div className="space-y-10">
+        <Carousel />
+        <TopEducator />
+        <StudentsReviews />
+        <SocialMedia />
+      </div>
+    </Homelayout>
+  );
 }
 
 export default Homepage;

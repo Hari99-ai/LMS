@@ -1,130 +1,107 @@
-
 import React from "react";
 import Homelayout from "../Layouts/Homelayout.jsx";
 import AboutImage from "../assets/Images/aboutMainImage.png";
 import Slides from "../components/carouselSlides.jsx";
 import { arr } from "../constants/AboutpageContants.jsx";
-import gif3 from "../assets/Images/gif3.gif"; // Adjust path as necessary
-import rohan from "../assets/Images/rohan.jpg"; // Adjust path as necessary
-import braj from "../assets/Images/brajraj.png"; // Adjust path as necessary
+import gif3 from "../assets/Images/gif3.gif";
+import rohan from "../assets/Images/rohan.jpg";
+import braj from "../assets/Images/brajraj.png";
 
 function AboutPage() {
   return (
     <Homelayout>
-      <div
-        className="w-full  flex justify-center items-center flex-col relative"
-        style={{
-          backgroundImage: `url(${gif3})`,
-          backgroundSize: "cover", // Ensures the image covers the entire container
-          backgroundPosition: "center", // Centers the image
-          backgroundRepeat: "no-repeat", // Prevents the GIF from repeating
-          opacity: 0.8, // Reduces opacity of the background image only
-          zIndex: -5, // Keeps the background behind the content
-          height: "250vh", // Ensures the background covers the full height
-        }}
-      >
-        {/* Content Section */}
-        <div className="min-w-full flex justify-center  items-center flex-col relative z-10">
-          <div className="flex sm:flex-row flex-col mt-5 items-center justify-center ">
-            <div className="w-full sm:w-1/2 px-5 lg:px-16 space-y-5">
-              <h1 className="text-5xl w-[100%] text-center pl-10 font-extrabold text-teal-300">
-                "Affordable and quality education, that meets the expectations"
+      <section className="relative px-4 py-16 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 -z-10 opacity-20" style={{ backgroundImage: `url(${gif3})`, backgroundSize: "cover", backgroundPosition: "center" }} />
+        <div className="mx-auto max-w-7xl space-y-10">
+          <div className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="rounded-[2rem] border border-white/70 bg-white/80 p-8 shadow-[0_24px_70px_rgba(15,23,42,0.12)] backdrop-blur-lg">
+              <p className="text-sm font-semibold uppercase tracking-[0.35em] text-teal-500">About us</p>
+              <h1 className="mt-3 text-4xl font-black tracking-tight text-slate-900 sm:text-5xl">
+                Affordable and quality education that meets expectations.
               </h1>
-              <p className="text-2xl font-extralight pl-10 pt-10 text-teal-300">
-                Our mission is to make quality education accessible and affordable for everyone across the globe. We aim to create a platform where aspiring teachers and eager students can connect, collaborate, and share their skills, creativity, and knowledge. By fostering this exchange, we empower individuals to grow personally and professionally. <br /> <br />
-          
-                Ultimately, our goal is to uplift individuals and communities by emphasizing the transformative power of education. By enabling access to knowledge and creativity, we strive to contribute to the overall growth and well-being of humanity.
+              <p className="mt-5 text-base leading-8 text-slate-600 sm:text-lg">
+                Our mission is to make quality education accessible and affordable for everyone. We connect aspiring teachers and eager students so they can share skills, creativity, and knowledge in a supportive environment.
               </p>
+              <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-2xl bg-slate-50 p-4">
+                  <p className="text-2xl font-black text-slate-900">Learn</p>
+                  <p className="text-sm text-slate-500">At your own pace</p>
+                </div>
+                <div className="rounded-2xl bg-slate-50 p-4">
+                  <p className="text-2xl font-black text-slate-900">Grow</p>
+                  <p className="text-sm text-slate-500">With guided support</p>
+                </div>
+                <div className="rounded-2xl bg-slate-50 p-4">
+                  <p className="text-2xl font-black text-slate-900">Lead</p>
+                  <p className="text-sm text-slate-500">Through practice</p>
+                </div>
+              </div>
             </div>
-            <div className="w-full sm:w-1/2 flex items-center">
-              <img src={AboutImage} alt="about page image" />
+
+            <div className="rounded-[2rem] border border-white/70 bg-gradient-to-br from-slate-950 to-teal-950 p-4 shadow-[0_24px_70px_rgba(15,23,42,0.16)]">
+              <img src={AboutImage} alt="about page illustration" className="w-full rounded-[1.5rem] object-cover" />
             </div>
           </div>
-          <div className="flex gap-20 mt-14">
-              <section className=" border border-transparent hover:scale-110  hover:bg-gray-700 ease-in-out transition duration-1000 rounded-2xl bg-gray-900 py-10">
-              <div className="max-w-5xl mx-auto px-4">
-                <h2 className="text-3xl font-bold text-center text-white mb-6">
-                  About the Founder
-                </h2>
-                <div className="bg-gray-800 rounded-lg shadow-md p-6 md:flex items-center">
-                  {/* Image Section */}
-                  <div className="w-full hover:scale-110 ease-in-out transition duration-1000 md:w-1/3 mb-6 md:mb-0 flex justify-center">
-                    <img
-                      src={rohan} // Replace with founder's image URL
-                      alt="Founder"
-                      className="w-40 h-40 rounded-full object-cover"
-                    />
-                  </div>
 
-                  {/* Details Section */}
-                  <div className="md:w-2/3 md:ml-6">
-                    <h3 className="text-2xl font-extrabold text-teal-600">Rohan Malakar</h3>
-                    <p className="text-gray-300 mb-4">Founder, Code-Scorer</p>
-                    <ul className="text-white space-y-2">
-                      <li>
-                        <strong  className="text-teal-300" >Email:</strong> rohanmalakar5091@gmal.com
-                      </li>
-                      <li>
-                        <strong className="text-teal-300" >Mobile:</strong> +91 9098905595
-                      </li>
-                      <li>
-                        <strong className="text-teal-300" >Office Address:</strong> MITS Gwalior, MP 474005
-                      </li>
-                    </ul>
-                  </div>
+          <div className="grid gap-6 lg:grid-cols-2">
+            <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/80 shadow-[0_20px_50px_rgba(15,23,42,0.1)]">
+              <div className="bg-slate-950 px-6 py-4 text-white">
+                <h2 className="text-2xl font-bold">About the Founder</h2>
+              </div>
+              <div className="grid gap-6 p-6 md:grid-cols-[180px_1fr] md:items-center">
+                <div className="flex justify-center">
+                  <img src={rohan} alt="Founder" className="h-40 w-40 rounded-full object-cover ring-8 ring-teal-100" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-extrabold text-slate-900">Rohan Malakar</h3>
+                  <p className="mt-1 text-teal-500">Founder, Code-Scorer</p>
+                  <ul className="mt-4 space-y-2 text-slate-600">
+                    <li><strong className="text-slate-900">Email:</strong> rohanmalakar5091@gmal.com</li>
+                    <li><strong className="text-slate-900">Mobile:</strong> +91 9098905595</li>
+                    <li><strong className="text-slate-900">Office:</strong> MITS Gwalior, MP 474005</li>
+                  </ul>
                 </div>
               </div>
             </section>
-            <section className=" border border-transparent hover:scale-110 hover:bg-gray-700 ease-in-out transition duration-1000 rounded-2xl bg-gray-900 py-10">
-              <div className="max-w-5xl mx-auto px-4">
-                <h2 className="text-3xl font-bold text-center text-white mb-6">
-                  About the Founder
-                </h2>
-                <div className="bg-gray-800 rounded-lg shadow-md p-6 md:flex items-center">
-                  {/* Image Section */}
-                  <div className="ease-in-out hover:scale-110 transition duration-1000 md:w-1/3 md:h-1/3 mb-6 md:mb-0 flex justify-center">
-                    <img
-                      src={braj} // Replace with founder's image URL
-                      alt="Founder"
-                      className="w-40 h-40 rounded-full object-cover"
-                    />
-                  </div>
 
-                  {/* Details Section */}
-                  <div className="md:w-2/3 md:ml-6">
-                    <h3 className="text-2xl font-extrabold text-teal-600">Brajraj Mishra</h3>
-                    <p className="text-gray-300 mb-4">Founder, Code-Scorer</p>
-                    <ul className="text-white space-y-2">
-                      <li>
-                        <strong className="text-teal-300">Email:</strong> mishrabckt2020@gmail.com
-                      </li>
-                      <li>
-                        <strong className="text-teal-300" >Mobile:</strong> +91 8418989493
-                      </li>
-                      <li>
-                        <strong className="text-teal-300" >Office Address:</strong> MITS Gwalior, MP 474005
-                      </li>
-                    </ul>
-                  </div>
+            <section className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white/80 shadow-[0_20px_50px_rgba(15,23,42,0.1)]">
+              <div className="bg-slate-950 px-6 py-4 text-white">
+                <h2 className="text-2xl font-bold">About the Founder</h2>
+              </div>
+              <div className="grid gap-6 p-6 md:grid-cols-[180px_1fr] md:items-center">
+                <div className="flex justify-center">
+                  <img src={braj} alt="Founder" className="h-40 w-40 rounded-full object-cover ring-8 ring-teal-100" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-extrabold text-slate-900">Brajraj Mishra</h3>
+                  <p className="mt-1 text-teal-500">Founder, Code-Scorer</p>
+                  <ul className="mt-4 space-y-2 text-slate-600">
+                    <li><strong className="text-slate-900">Email:</strong> mishrabckt2020@gmail.com</li>
+                    <li><strong className="text-slate-900">Mobile:</strong> +91 8418989493</li>
+                    <li><strong className="text-slate-900">Office:</strong> MITS Gwalior, MP 474005</li>
+                  </ul>
                 </div>
               </div>
             </section>
           </div>
-          <div className="carousel mb-6 w-[50%]">
-            {arr &&
-              arr.map((obj, index) => {
-                return (
-                  <Slides
-                    {...obj}
-                    slidenumber={index + 1}
-                    key={index}
-                    totalslides={arr.length}
-                  />
-                );
-              })}
+
+          <div className="overflow-hidden rounded-[2rem] border border-white/70 bg-white/80 p-4 shadow-[0_20px_50px_rgba(15,23,42,0.1)] backdrop-blur-lg">
+            <div className="carousel w-full">
+              {arr &&
+                arr.map((obj, index) => {
+                  return (
+                    <Slides
+                      {...obj}
+                      slidenumber={index + 1}
+                      key={index}
+                      totalslides={arr.length}
+                    />
+                  );
+                })}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </Homelayout>
   );
 }
