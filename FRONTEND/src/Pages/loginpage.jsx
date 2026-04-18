@@ -59,12 +59,11 @@ function Login() {
     const response = await dispatch(Loginmethod(formData));
     if (response?.payload?.success) {
       navigate("/");
+      setLoginData({
+        email: "",
+        password: "",
+      });
     }
-
-    setLoginData({
-      email: "",
-      password: "",
-    });
   }
 
   // Handle mouse move for 3D effect

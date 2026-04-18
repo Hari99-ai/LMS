@@ -78,15 +78,14 @@ function SignUp() {
 
     if (response?.payload?.success) {
       navigate("/");
+      setSignUpData({
+        fullName: "",
+        email: "",
+        password: "",
+        avatar: "",
+      });
+      setImage("");
     }
-
-    setSignUpData({
-      fullName: "",
-      email: "",
-      password: "",
-      avatar: "",
-    });
-    setImage("");
   }
 
   // Ensure the return is properly indented and inside the SignUp function.

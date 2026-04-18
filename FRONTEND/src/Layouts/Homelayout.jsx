@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
@@ -13,11 +13,8 @@ import gif7 from "../assets/Images/gif7.gif"
 function Homelayout({ children }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const isLoggedin=useSelector((state) => state?.auth?.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   const role = useSelector((state) => state?.auth?.role);
-  console.log("role",role);
-  console.log("isLoggedin",isLoggedin);
   async function handlelogout(e) {
     e.preventDefault();
     const res = await dispatch(logoutmethod());
@@ -27,9 +24,6 @@ function Homelayout({ children }) {
      }
   }
 
-  useEffect(() => {
-    setIsLoggedIn(isLoggedin);
-  }, [isLoggedin]);
   return (
     <div className="min-h-screen w-full flex flex-col overflow-x-hidden">
       <header className="drawer fixed w-full bg-black  z-50 h-12">
@@ -61,28 +55,28 @@ function Homelayout({ children }) {
                 </Link>
               </li>
           )}
-          {isLoggedIn && role == "ADMIN" && (
+          {isLoggedIn && role === "ADMIN" && (
               <li>
                 <Link to={"/admin/dashboard"}>
                   <span className="text-lg font-bold hover:text-teal-300  ">Admin Dashboard</span>
                 </Link>
               </li>
            )}
-           {isLoggedIn && role == "ADMIN" && (
+           {isLoggedIn && role === "ADMIN" && (
               <li>
                 <Link to={"/course/create"}>
                   <span className="text-lg font-bold hover:text-teal-300 ">Create course</span>
                 </Link>
               </li>
             )}
-            { role!="ADMIN" &&(
+            {role !== "ADMIN" && (
               <li>
                 <Link to={"/contact"}>
                   <span className="text-lg font-bold hover:text-teal-300  ">Contact</span>
                 </Link>
               </li>
             )}
-            {isLoggedIn && role == "ADMIN" && (
+            {isLoggedIn && role === "ADMIN" && (
               <li>
                 <Link to={"/contact/showData"}>
                   <span className="text-lg font-bold hover:text-teal-300  ">Contact data</span>
